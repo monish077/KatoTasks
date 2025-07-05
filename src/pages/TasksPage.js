@@ -11,10 +11,12 @@ const TasksPage = () => {
   const [editTaskId, setEditTaskId] = useState(null);
   const [editTaskTitle, setEditTaskTitle] = useState('');
 
+  const API_BASE = 'https://katotasks-backend.fly.dev/api';
+
   const fetchTasks = async () => {
     if (!user?.email) return;
     try {
-      const response = await axios.get('http://localhost:5000/api/tasks', {
+      const response = await axios.get(`${API_BASE}/tasks`, {
         params: { email: user.email },
       });
       setTasks(response.data);
@@ -28,7 +30,7 @@ const TasksPage = () => {
     if (!newTask.trim()) return;
 
     try {
-      const response = await axios.post('http://localhost:5000/api/tasks', {
+      const response = await axios.post(`${API_BASE}/tasks`, {
         title: newTask,
         description: '',
         completed: false,
@@ -43,7 +45,7 @@ const TasksPage = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      await axios.delete(`${API_BASE}/tasks/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
     } catch (error) {
       console.error('Error deleting task:', error.message);
@@ -62,7 +64,7 @@ const TasksPage = () => {
 
   const saveEdit = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/tasks/${id}`, {
+      const response = await axios.put(`${API_BASE}/tasks/${id}`, {
         title: editTaskTitle,
       });
       setTasks(tasks.map((task) => (task._id === id ? response.data : task)));
@@ -75,13 +77,20 @@ const TasksPage = () => {
   const handleLoginSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     setUser(decoded);
+    localStorage.setItem('user', JSON.stringify(decoded));
   };
 
   const handleLogout = () => {
     googleLogout();
     setUser(null);
     setTasks([]);
+    localStorage.removeItem('user');
   };
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) setUser(JSON.parse(savedUser));
+  }, []);
 
   useEffect(() => {
     if (user) fetchTasks();

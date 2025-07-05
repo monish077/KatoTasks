@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import TasksPage from './pages/TasksPage';
