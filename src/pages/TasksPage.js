@@ -4,24 +4,28 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import '../styles/TasksPage.css';
 
+const API_BASE_URL = 'https://katotasks-backend.fly.dev/api/tasks';
+
 const TasksPage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem('user');
+    return saved ? JSON.parse(saved) : null;
+  });
+
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
   const [editTaskId, setEditTaskId] = useState(null);
   const [editTaskTitle, setEditTaskTitle] = useState('');
 
-  const API_BASE = 'https://katotasks-backend.fly.dev/api';
-
   const fetchTasks = async () => {
     if (!user?.email) return;
     try {
-      const response = await axios.get(`${API_BASE}/tasks`, {
+      const response = await axios.get(API_BASE_URL, {
         params: { email: user.email },
       });
       setTasks(response.data);
     } catch (error) {
-      console.error('Error fetching tasks:', error.message);
+      console.error('❌ Error fetching tasks:', error.message);
     }
   };
 
@@ -30,7 +34,7 @@ const TasksPage = () => {
     if (!newTask.trim()) return;
 
     try {
-      const response = await axios.post(`${API_BASE}/tasks`, {
+      const response = await axios.post(API_BASE_URL, {
         title: newTask,
         description: '',
         completed: false,
@@ -39,16 +43,16 @@ const TasksPage = () => {
       setTasks([...tasks, response.data]);
       setNewTask('');
     } catch (error) {
-      console.error('Error adding task:', error.message);
+      console.error('❌ Error adding task:', error.message);
     }
   };
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`${API_BASE}/tasks/${id}`);
+      await axios.delete(`${API_BASE_URL}/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
     } catch (error) {
-      console.error('Error deleting task:', error.message);
+      console.error('❌ Error deleting task:', error.message);
     }
   };
 
@@ -64,13 +68,13 @@ const TasksPage = () => {
 
   const saveEdit = async (id) => {
     try {
-      const response = await axios.put(`${API_BASE}/tasks/${id}`, {
+      const response = await axios.put(`${API_BASE_URL}/${id}`, {
         title: editTaskTitle,
       });
       setTasks(tasks.map((task) => (task._id === id ? response.data : task)));
       cancelEdit();
     } catch (error) {
-      console.error('Error updating task:', error.message);
+      console.error('❌ Error updating task:', error.message);
     }
   };
 
@@ -78,6 +82,7 @@ const TasksPage = () => {
     const decoded = jwtDecode(credentialResponse.credential);
     setUser(decoded);
     localStorage.setItem('user', JSON.stringify(decoded));
+    window.location.reload(); // Optional: refresh to re-fetch tasks
   };
 
   const handleLogout = () => {
@@ -88,11 +93,6 @@ const TasksPage = () => {
   };
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) setUser(JSON.parse(savedUser));
-  }, []);
-
-  useEffect(() => {
     if (user) fetchTasks();
   }, [user]);
 
@@ -101,7 +101,10 @@ const TasksPage = () => {
       <div className="login-container">
         <h2>Welcome to KatoTasks</h2>
         <p>Login to view your tasks</p>
-        <GoogleLogin onSuccess={handleLoginSuccess} onError={() => alert('Login failed')} />
+        <GoogleLogin
+          onSuccess={handleLoginSuccess}
+          onError={() => alert('❌ Login failed')}
+        />
       </div>
     );
   }
@@ -139,7 +142,7 @@ const TasksPage = () => {
               <>
                 <span className="text">{task.title}</span>
                 <div className="actions">
-                  <button onClick={() => startEdit(task)}>Edit</button>&nbsp;
+                  <button onClick={() => startEdit(task)}>Edit</button>
                   <button onClick={() => deleteTask(task._id)}>Delete</button>
                 </div>
               </>
