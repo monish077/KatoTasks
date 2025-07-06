@@ -30,10 +30,10 @@ This project is built for the **Katomaran Hackathon 2025** by [Katomaran](https:
 > 📸 Add your screenshots in `/screenshots/` and update the paths below.
 
 ### 🔐 Login Page
-![Login](./frontend/screenshots/login.png)
+![Dashboard](https://raw.githubusercontent.com/monish077/KatoTasks/main/frontend/screenshots/Dashboard.png)
 
-### 🗂️ Dashboard
-![Dashboard](./frontend/screenshots/Dashboard.png)
+![Login](https://raw.githubusercontent.com/monish077/KatoTasks/main/frontend/screenshots/login.png)
+
 
 ---
 
