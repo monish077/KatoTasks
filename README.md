@@ -27,13 +27,11 @@ This project is built for the **Katomaran Hackathon 2025** by [Katomaran](https:
 
 ## 🖼️ Screenshots
 
-> 📸 Add your screenshots in `/screenshots/` and update the paths below.
-
-### 🔐 Login Page
-![Dashboard](https://raw.githubusercontent.com/monish077/KatoTasks/main/frontend/screenshots/Dashboard.png)
-
+### Login Page  
 ![Login](https://raw.githubusercontent.com/monish077/KatoTasks/main/frontend/screenshots/login.png)
 
+### Dashboard  
+![Dashboard](https://raw.githubusercontent.com/monish077/KatoTasks/main/frontend/screenshots/Dashboard.png)
 
 ---
 
