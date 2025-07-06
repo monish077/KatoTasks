@@ -1,54 +1,71 @@
-# KatoTasks - Todo Task Management Web App
+# 📋 KatoTasks - Todo Task Management Web App
 
-This project is a part of a hackathon run by [https://www.katomaran.com](https://www.katomaran.com)
+This project is built for the **Katomaran Hackathon 2025** by [Katomaran](https://www.katomaran.com).
+
+---
 
 ## 🚀 Overview
 
-**KatoTasks** is a full-stack Todo Task Management Web App that enables users to sign in with Google and manage personal and shared tasks in real-time.
+**KatoTasks** is a full-stack task management application that lets users sign in with Google and manage personal tasks in real-time. Designed with productivity and collaboration in mind, the app supports CRUD operations, real-time updates, and mobile responsiveness.
 
-Built as part of the Katomaran Hackathon 2025, this app showcases complete engineering skills — from authentication, backend APIs, and real-time updates to responsive frontend UI and deployment.
+> ✨ Built using the MERN stack with real-time features and OAuth login.
 
 ---
 
 ## 🌟 Features
 
-- ✅ Google OAuth login
-- 📝 Create, update, delete, and view personal tasks
-- 👥 Share tasks with other registered users
-- 🔄 Real-time task updates using Socket.IO
-- 🧮 Filter by priority, status, and due date
-- 📱 Responsive UI for desktop & mobile
-- 🔔 Toast notifications for user actions
-- 🔌 Offline fallback & error boundaries
+- 🔐 **Google OAuth 2.0** login
+- ✅ Create, update, delete, and view tasks
+- 👥 Share tasks with other users (coming soon)
+- 🔄 Real-time updates using **Socket.IO**
+- 🧮 Filter by priority, status, and due date (optional)
+- 💡 Smart toast notifications
+- 📱 Fully responsive UI
+- 🌐 Deployed on Vercel (Frontend) and Fly.io (Backend)
+
+---
+
+## 🖼️ Screenshots
+
+> 📸 Add your screenshots in `/screenshots/` and update the paths below.
+
+### 🔐 Login Page
+![Login](./frontend/screenshots/login.png)
+
+### 🗂️ Dashboard
+![Dashboard](./frontend/screenshots/Dashboard.png)
 
 ---
 
 ## 🛠 Tech Stack
 
-| Layer      | Tech                      |
-|------------|---------------------------|
-| Frontend   | React, Tailwind CSS       |
-| Backend    | Node.js, Express.js       |
-| Database   | MongoDB Atlas             |
-| Auth       | Google OAuth 2.0 + JWT    |
-| Real-time  | Socket.IO                 |
-| Deployment | Vercel (frontend), Railway (backend) |
+| Layer      | Tech Stack                 |
+|------------|----------------------------|
+| Frontend   | React, Tailwind CSS        |
+| Backend    | Node.js, Express.js        |
+| Database   | MongoDB Atlas              |
+| Auth       | Google OAuth 2.0, JWT      |
+| Real-time  | Socket.IO (WebSockets)     |
+| Deployment | Vercel (frontend), Fly.io (backend) |
 
 ---
 
-## 📦 How to Run Locally
+## 📦 Local Setup
+
+Clone the repository and run both backend and frontend:
 
 ```bash
-# Clone the project
+# 1. Clone the repository
 git clone https://github.com/monish077/KatoTasks.git
 cd KatoTasks
 
-# Setup Backend
-cd backend/backend
+# 2. Setup Backend
+cd backend
 npm install
 npm run dev
+# Make sure your `.env` has correct MongoDB URI
 
-# Setup Frontend
-cd ../../frontend
+# 3. Setup Frontend
+cd ../frontend
 npm install
 npm start
