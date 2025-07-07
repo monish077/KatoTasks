@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📋 KatoTasks - Todo Task Management Web App
 
 This project is built for the **Katomaran Hackathon 2025** by [Katomaran](https://www.katomaran.com).
@@ -146,3 +147,4 @@ cd ../frontend
 npm install
 npm start
 
+=======
